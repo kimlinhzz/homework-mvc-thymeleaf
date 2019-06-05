@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.0/css/mdb.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="div-header"  class="my-5" th:replace="~{fragment/ajax-fragment :: header1}">
+
+</div>
+<h1 style="margin-top: 100px" class="text-center">View</h1>
+<div class="container">
+<form   th:object="${article}">
+    <label class="" for="id">ID:</label>
+    <input readonly class="form-control" type="text" id="id" th:field="*{id}"><br>
+    <label for="title">Title</label>
+    <input readonly class="form-control"  type="text" id="title" th:field="*{title}"><br>
+    <label for="author">Author:</label>
+    <input readonly class="form-control" type="text" id="author" th:field="*{aurthor}"><br>
+    <label for="des">Description:</label>
+    <input readonly class="form-control" type="text" id="des" th:field="*{description}"><br>
+    <img style="width:180px; height: 130px" th:src="'/thumnail/'+*{thumnail}">
+    <a th:href="@{/index}" class="btn btn-yellow">back</a>
+    <!--        <input type="file" name="file"><br>-->
+<!--    <input type="submit" value="ADD">-->
+</form>
+</div>
+
+
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.0/js/mdb.min.js"></script>
+</body>
+<div id="div-footer" style="position: absolute;bottom: 0 ;width: 100%"   th:insert="~{fragment/ajax-fragment :: footer1}">
+
+</div>
+</html>

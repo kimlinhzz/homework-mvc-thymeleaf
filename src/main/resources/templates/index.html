@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layouts/layout-home}"
+         >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.0/css/mdb.min.css" rel="stylesheet">
+</head>
+<body>
+           <div id="div-header"  class="my-5" th:replace="~{fragment/ajax-fragment :: header1}">
+
+           </div>
+
+
+
+    <div class="container">
+        <h1 class="text-center " style="margin-top: 100px"  th:text="#{title}"> Article Management </h1>
+        <a th:href="@{/formAdd}" class="btn btn-green" th:text="#{add-text}">ADD</a>
+        <p ><span th:text="#{record-text}">Records:</span>  <span th:text="${#lists.size(articles)}"></span></p>
+        <h3 th:unless="${#lists.isEmpty(articles)==false}" th:text="#{null-text}"> </h3>
+        <table class="table" th:if="${#lists.isEmpty(articles)==false}">
+            <thead>
+            <tr>
+                <th scope="col" th:text="#{id-text}">ID</th>
+                <th scope="col" th:text="#{title-text}">Title</th>
+                <th scope="col" th:text="#{author-text}">Author</th>
+                <th scope="col" th:text="#{description}">Description</th>
+                <th scope="col" th:text="#{thumbnail-text}">Thumnail</th>
+                <th scope="col" th:text="#{action}">Action</th>
+                </tr>
+            </thead>
+            <tbody >
+
+
+            <tr th:each="article ,articleSta : ${articles}" th:object="${article}">
+
+                <td th:text="*{id}"></td>
+                <td th:text="*{title}"></td>
+                <td th:text="*{aurthor}"></td>
+                <td th:text="*{description}"></td>
+                <td> <img style="width:180px; height: 130px" th:src="'/thumnail/'+*{thumnail}"></td>
+
+                <td>
+                    <a th:href="@{/view(id=*{id})}" class="btn btn-yellow" th:text="#{view-text}">View</a>
+                    <a th:href="@{/formUpdate(id=*{id})}" class="btn btn-blue" th:text="#{update-text}">update</a>
+                    <a th:href="@{/delete(id=*{id})}" class="btn btn-red" th:text="#{delete-text}">delete</a>
+                </td>
+            </tr>
+            <tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+        <!-- JQuery -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.0/js/mdb.min.js"></script>
+    <script>
+
+    </script>
+</body>
+<div id="div-footer" style="position: absolute;bottom: 0 ;width: 100%"   th:insert="~{fragment/ajax-fragment :: footer1}">
+
+</div>
+</html>
