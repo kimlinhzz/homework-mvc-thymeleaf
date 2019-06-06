@@ -1,7 +1,10 @@
 package com.example.demohomework.controller;
 
+import com.example.demohomework.repository.ActicleRepositoryImp;
+import com.example.demohomework.repository.articleRepository.ArticleRepository;
 import com.example.demohomework.repository.model.Article;
 import com.example.demohomework.service.ArticleService.ArticleService;
+import com.example.demohomework.service.ArticleServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,16 +26,39 @@ import java.util.UUID;
 @Controller
 public class MainController {
 
+
     @Autowired
     ArticleService articleService;
 
-    @GetMapping({"/index", "/"})
+
+
+    @GetMapping("/")
     public String getIndex(ModelMap modelMap) {
-        System.out.println(articleService.findAll() + "hello");
         modelMap.addAttribute("articles", articleService.findAll());
+        modelMap.addAttribute("articlePage",articleService.showByPagination(1,10));
+        modelMap.addAttribute("currentPage", ActicleRepositoryImp.currentPage);
+        modelMap.addAttribute("totalPage", ActicleRepositoryImp.lastPage);
         return "index";
     }
 
+    @GetMapping("/viewAll")
+    public String getIndex(ModelMap modelMap,@RequestParam("page") int page ,@RequestParam("limit") int limit ) {
+        System.out.println(articleService.findAll() + "hello");
+        viewPage(modelMap, page, limit);
+        return "index";
+    }
+
+    private void viewPage(ModelMap modelMap, int page, int limit) {
+
+        if (page == 0) { page =ActicleRepositoryImp.lastPage;}
+
+        if (page > ActicleRepositoryImp.lastPage){ page = 1;}
+            modelMap.addAttribute("articles", articleService.findAll());
+            modelMap.addAttribute("articlePage", articleService.showByPagination(page, limit));
+            modelMap.addAttribute("currentPage", ActicleRepositoryImp.currentPage);
+            modelMap.addAttribute("totalPage", ActicleRepositoryImp.lastPage);
+
+    }
 
     @GetMapping("/formAdd")
     public String getFormAdd(ModelMap modelMap) {
@@ -49,9 +75,7 @@ public class MainController {
             System.out.println("error");
             return "form-add";
         } else {
-
-
-        System.out.println(configImage(file));
+  System.out.println(configImage(file));
         article.setThumnail(configImage(file));
         articleService.add(article);
         return "redirect:/";}

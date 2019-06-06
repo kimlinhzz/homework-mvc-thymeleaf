@@ -14,6 +14,14 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.0/css/mdb.min.css" rel="stylesheet">
+
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 </head>
 <body>
            <div id="div-header"  class="my-5" th:replace="~{fragment/ajax-fragment :: header1}">
@@ -41,7 +49,7 @@
             <tbody >
 
 
-            <tr th:each="article ,articleSta : ${articles}" th:object="${article}">
+            <tr th:each="article ,articleSta : ${articlePage}" th:object="${article}">
 
                 <td th:text="*{id}"></td>
                 <td th:text="*{title}"></td>
@@ -59,7 +67,16 @@
 
             </tbody>
         </table>
-
+<!--        pagination-->
+        <ul class="pagination pull-right">
+            <li class="page-item"><a th:href="@{/viewAll(page=1,limit=10)}"><i class="material-icons">first</i></a></li>
+            <li class="page-item"><a th:if="currentPage==1" th:href="@{/viewAll(page=${totalPage},limit=10)} "><i class="material-icons">previous</i></a></li>
+            <li class="page-item"><a th:if="${currentPage}>=0"   th:href="@{/viewAll(page=${currentPage}-1,limit=10)} "><i class="material-icons">previous</i></a></li>
+            <li th:each="i :${#numbers.sequence(1,totalPage)}">
+                <a id="active" th:text="${i}" th:href="@{/viewAll(page = ${i},limit=10)}" style="color: aquamarine"></a></li>
+            <li class="page-item"><a th:href="@{/viewAll(page=${currentPage}+1,limit=10)}"><i class="material-icons">next</i></a></li>
+            <li class="waves-effect"><a th:href="@{/viewAll(page=${totalPage} ,limit=10)}"><i class="material-icons">last</i></a></li>
+        </ul>
     </div>
 
         <!-- JQuery -->
@@ -71,10 +88,13 @@
         <!-- MDB core JavaScript -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.0/js/mdb.min.js"></script>
     <script>
+        $("#active").click(function () {
+            $('#active').addC
 
+        })
     </script>
 </body>
-<div id="div-footer" style="position: absolute;bottom: 0 ;width: 100%"   th:insert="~{fragment/ajax-fragment :: footer1}">
+<div id="div-footer" style="bottom: 0 ;width: 100%" th:insert="~{fragment/ajax-fragment :: footer1}">
 
 </div>
 </html>

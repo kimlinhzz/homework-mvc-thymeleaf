@@ -11,6 +11,7 @@ public interface ArticleRepository {
     void update(int id,Article article);
     Article getArticle(int id);
     void delete(int id);
+    List<Article> showByPagination(int page,int limit);
 
 
 }
