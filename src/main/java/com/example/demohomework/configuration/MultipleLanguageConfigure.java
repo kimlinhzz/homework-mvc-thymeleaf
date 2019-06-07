@@ -15,14 +15,14 @@ public class MultipleLanguageConfigure implements WebMvcConfigurer {
 
 
     @Bean
-    LocaleResolver localeResolver(){
+    LocaleResolver localeResolver() {
         SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
         sessionLocaleResolver.setDefaultLocale(Locale.US);
         return sessionLocaleResolver;
     }
 
     @Bean
-    LocaleChangeInterceptor localeChangeInterceptor(){
+    LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
         localeChangeInterceptor.setParamName("lang");
         return localeChangeInterceptor;

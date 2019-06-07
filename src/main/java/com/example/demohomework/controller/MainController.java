@@ -31,18 +31,17 @@ public class MainController {
     ArticleService articleService;
 
 
-
     @GetMapping("/")
     public String getIndex(ModelMap modelMap) {
         modelMap.addAttribute("articles", articleService.findAll());
-        modelMap.addAttribute("articlePage",articleService.showByPagination(1,10));
+        modelMap.addAttribute("articlePage", articleService.showByPagination(1, 10));
         modelMap.addAttribute("currentPage", ActicleRepositoryImp.currentPage);
         modelMap.addAttribute("totalPage", ActicleRepositoryImp.lastPage);
         return "index";
     }
 
     @GetMapping("/viewAll")
-    public String getIndex(ModelMap modelMap,@RequestParam("page") int page ,@RequestParam("limit") int limit ) {
+    public String getIndex(ModelMap modelMap, @RequestParam("page") int page, @RequestParam("limit") int limit) {
         System.out.println(articleService.findAll() + "hello");
         viewPage(modelMap, page, limit);
         return "index";
@@ -50,13 +49,17 @@ public class MainController {
 
     private void viewPage(ModelMap modelMap, int page, int limit) {
 
-        if (page == 0) { page =ActicleRepositoryImp.lastPage;}
+        if (page == 0) {
+            page = ActicleRepositoryImp.lastPage;
+        }
 
-        if (page > ActicleRepositoryImp.lastPage){ page = 1;}
-            modelMap.addAttribute("articles", articleService.findAll());
-            modelMap.addAttribute("articlePage", articleService.showByPagination(page, limit));
-            modelMap.addAttribute("currentPage", ActicleRepositoryImp.currentPage);
-            modelMap.addAttribute("totalPage", ActicleRepositoryImp.lastPage);
+        if (page > ActicleRepositoryImp.lastPage) {
+            page = 1;
+        }
+        modelMap.addAttribute("articles", articleService.findAll());
+        modelMap.addAttribute("articlePage", articleService.showByPagination(page, limit));
+        modelMap.addAttribute("currentPage", ActicleRepositoryImp.currentPage);
+        modelMap.addAttribute("totalPage", ActicleRepositoryImp.lastPage);
 
     }
 
@@ -75,10 +78,11 @@ public class MainController {
             System.out.println("error");
             return "form-add";
         } else {
-  System.out.println(configImage(file));
-        article.setThumnail(configImage(file));
-        articleService.add(article);
-        return "redirect:/";}
+            System.out.println(configImage(file));
+            article.setThumnail(configImage(file));
+            articleService.add(article);
+            return "redirect:/";
+        }
     }
 
     @GetMapping("/delete")
@@ -96,16 +100,22 @@ public class MainController {
     }
 
     @PostMapping("/update")
-    public String updateData(@RequestParam("id") int articleId, @ModelAttribute Article article, @RequestParam("file") MultipartFile file) {
+    public String updateData(@Valid @RequestParam("id") int articleId, @ModelAttribute Article article,BindingResult result ,@RequestParam("file") MultipartFile file ) {
         System.out.println(file.getOriginalFilename());
-        if (!file.isEmpty()) {
-            System.out.println(file.getOriginalFilename() + "update");
-            article.setThumnail(configImage(file));
-            articleService.update(articleId, article);
-            return "redirect:/";
-        } else {
-            System.out.println("processing");
-            return "redirect:/";
+        if (result.hasErrors()){
+            System.out.println("Has Error");
+            return "form-update";
+        }
+        else {
+            if (!file.isEmpty()) {
+                System.out.println(file.getOriginalFilename() + "update");
+                article.setThumnail(configImage(file));
+                articleService.update(articleId, article);
+                return "redirect:/";
+            } else {
+                System.out.println("processing");
+                return "redirect:/";
+            }
         }
     }
 
@@ -118,10 +128,11 @@ public class MainController {
 
     private String configImage(MultipartFile file) {
         UUID random = UUID.randomUUID();
-        String fileName;
+        String fileName=null;
         if (file.isEmpty()) {
             fileName = "default.png";
         } else {
+
             String f = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
             System.out.println(random + f);
             fileName = random + f;
@@ -138,7 +149,7 @@ public class MainController {
     //Fragment
 
     @GetMapping("/frag1")
-    public String getFrag(){
+    public String getFrag() {
         return "fragment/ajax-fragment::header1";
     }
 }

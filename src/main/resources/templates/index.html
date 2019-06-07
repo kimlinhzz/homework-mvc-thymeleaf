@@ -24,43 +24,41 @@
 
 </head>
 <body>
-           <div id="div-header"  class="my-5" th:replace="~{fragment/ajax-fragment :: header1}">
 
-           </div>
-
-
+<!--    Replace fragment for header -->
+    <div id="div-header"  class="my-5" th:replace="~{fragment/ajax-fragment :: header1}"></div>
 
     <div class="container">
+
         <h1 class="text-center " style="margin-top: 100px"  th:text="#{title}"> Article Management </h1>
         <a th:href="@{/formAdd}" class="btn btn-green" th:text="#{add-text}">ADD</a>
         <p ><span th:text="#{record-text}">Records:</span>  <span th:text="${#lists.size(articles)}"></span></p>
         <h3 th:unless="${#lists.isEmpty(articles)==false}" th:text="#{null-text}"> </h3>
+
         <table class="table" th:if="${#lists.isEmpty(articles)==false}">
             <thead>
-            <tr>
-                <th scope="col" th:text="#{id-text}">ID</th>
-                <th scope="col" th:text="#{title-text}">Title</th>
-                <th scope="col" th:text="#{author-text}">Author</th>
-                <th scope="col" th:text="#{description}">Description</th>
-                <th scope="col" th:text="#{thumbnail-text}">Thumnail</th>
-                <th scope="col" th:text="#{action}">Action</th>
+                <tr>
+                    <th scope="col" th:text="#{id-text}">ID</th>
+                    <th scope="col" th:text="#{title-text}">Title</th>
+                    <th scope="col" th:text="#{author-text}">Author</th>
+                    <th scope="col" th:text="#{description}">Description</th>
+                    <th scope="col" th:text="#{thumbnail-text}">Thumnail</th>
+                    <th scope="col" th:text="#{action}">Action</th>
                 </tr>
             </thead>
+
             <tbody >
-
-
-            <tr th:each="article ,articleSta : ${articlePage}" th:object="${article}">
-
-                <td th:text="*{id}"></td>
-                <td th:text="*{title}"></td>
-                <td th:text="*{aurthor}"></td>
-                <td th:text="*{description}"></td>
-                <td> <img style="width:180px; height: 130px" th:src="'/thumnail/'+*{thumnail}"></td>
-
+                <tr th:each="article ,articleSta : ${articlePage}" th:object="${article}">
+                    <td th:text="*{id}"></td>
+                    <td th:text="*{title}"></td>
+                    <td th:text="*{aurthor}"></td>
+                    <td th:text="*{description}"></td>
+                    <td><img style="width:180px; height: 130px" th:src="'/thumnail/'+*{thumnail}"></td>
                 <td>
                     <a th:href="@{/view(id=*{id})}" class="btn btn-yellow" th:text="#{view-text}">View</a>
                     <a th:href="@{/formUpdate(id=*{id})}" class="btn btn-blue" th:text="#{update-text}">update</a>
-                    <a th:href="@{/delete(id=*{id})}" class="btn btn-red" th:text="#{delete-text}">delete</a>
+                    <a  id="delete" th:href="@{/delete(id=*{id})}" class="btn btn-red" th:text="#{delete-text}">delete</a>
+
                 </td>
             </tr>
             <tr>
@@ -72,8 +70,8 @@
             <li class="page-item"><a th:href="@{/viewAll(page=1,limit=10)}"><i class="material-icons">first</i></a></li>
             <li class="page-item"><a th:if="currentPage==1" th:href="@{/viewAll(page=${totalPage},limit=10)} "><i class="material-icons">previous</i></a></li>
             <li class="page-item"><a th:if="${currentPage}>=0"   th:href="@{/viewAll(page=${currentPage}-1,limit=10)} "><i class="material-icons">previous</i></a></li>
-            <li th:each="i :${#numbers.sequence(1,totalPage)}">
-                <a id="active" th:text="${i}" th:href="@{/viewAll(page = ${i},limit=10)}" style="color: aquamarine"></a></li>
+            <li th:each="i :${#numbers.sequence(1,totalPage)}" th:class="(${currentPage}==${i})? 'page-item active' : 'page-item'">
+                <a id="active" th:text="${i}" th:href="@{/viewAll(page = ${i},limit=10)}" style="color:black;text-align: center"></a></li>
             <li class="page-item"><a th:href="@{/viewAll(page=${currentPage}+1,limit=10)}"><i class="material-icons">next</i></a></li>
             <li class="waves-effect"><a th:href="@{/viewAll(page=${totalPage} ,limit=10)}"><i class="material-icons">last</i></a></li>
         </ul>
@@ -88,13 +86,29 @@
         <!-- MDB core JavaScript -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.0/js/mdb.min.js"></script>
     <script>
-        $("#active").click(function () {
-            $('#active').addC
+
+        $(document).ready(function () {
 
         })
+        function deleteByID(id){
+            var i =   confirm("Do you want to delete this record");
+            if (i) {$('#delete').attr("th:href","/delete?id="+id)
+                console.log("hello from delete")}
+
+
+        }
+        $('#active').click(function () {
+
+                $('#active').attr("class","btn-green")
+                console.log("hello from pagination")
+        })
+
+
+
     </script>
 </body>
-<div id="div-footer" style="bottom: 0 ;width: 100%" th:insert="~{fragment/ajax-fragment :: footer1}">
 
-</div>
+<!--    Replace fragment for footer -->
+
+<div id="div-footer" style="bottom: 0 ;width: 100%" th:insert="~{fragment/ajax-fragment :: footer1}"></div>
 </html>

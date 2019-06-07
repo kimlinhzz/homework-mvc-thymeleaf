@@ -7,11 +7,14 @@ import java.util.List;
 public interface ArticleRepository {
 
     void add(Article article);
-    List<Article> findAll();
+
     void update(int id,Article article);
-    Article getArticle(int id);
+
     void delete(int id);
+
     List<Article> showByPagination(int page,int limit);
 
+    List<Article> findAll();
 
+    Article getArticle(int id);
 }

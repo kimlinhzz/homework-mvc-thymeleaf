@@ -12,24 +12,27 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.0/css/mdb.min.css" rel="stylesheet">
 </head>
 <body>
-<div id="div-header"  class="my-5" th:replace="~{fragment/ajax-fragment :: header1}">
 
-</div>
+<!--    Replace fragment for header -->
+<div id="div-header" class="my-5" th:replace="~{fragment/ajax-fragment :: header1}"></div>
+
 <h1 style="margin-top: 100px" class="text-center">View</h1>
+
 <div class="container">
-<form   th:object="${article}">
-    <label class="" for="id">ID:</label>
-    <input readonly class="form-control" type="text" id="id" th:field="*{id}"><br>
-    <label for="title">Title</label>
-    <input readonly class="form-control"  type="text" id="title" th:field="*{title}"><br>
-    <label for="author">Author:</label>
-    <input readonly class="form-control" type="text" id="author" th:field="*{aurthor}"><br>
-    <label for="des">Description:</label>
-    <input readonly class="form-control" type="text" id="des" th:field="*{description}"><br>
-    <img style="width:180px; height: 130px" th:src="'/thumnail/'+*{thumnail}">
-    <a th:href="@{/index}" class="btn btn-yellow">back</a>
-    <!--        <input type="file" name="file"><br>-->
-<!--    <input type="submit" value="ADD">-->
+
+    <form th:object="${article}">
+
+        <label class="" for="id">ID:</label>
+        <input readonly class="form-control" type="text" id="id" th:field="*{id}"><br>
+        <label for="title">Title</label>
+        <input readonly class="form-control"  type="text" id="title" th:field="*{title}"><br>
+        <label for="author">Author:</label>
+        <input readonly class="form-control" type="text" id="author" th:field="*{aurthor}"><br>
+        <label for="des">Description:</label>
+        <input readonly class="form-control" type="text" id="des" th:field="*{description}"><br>
+        <img style="width:180px; height: 130px" th:src="'/thumnail/'+*{thumnail}">
+        <a th:href="@{/}" class="btn btn-yellow">back</a>
+
 </form>
 </div>
 
@@ -43,7 +46,8 @@
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.0/js/mdb.min.js"></script>
 </body>
-<div id="div-footer" style="bottom: 0;width: 100%"   th:insert="~{fragment/ajax-fragment :: footer1}">
 
-</div>
+<!--    Replace fragment for footer -->
+
+<div id="div-footer" style="bottom: 0;width: 100%"   th:insert="~{fragment/ajax-fragment :: footer1}"></div>
 </html>

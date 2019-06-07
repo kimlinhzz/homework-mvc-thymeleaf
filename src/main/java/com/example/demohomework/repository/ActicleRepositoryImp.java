@@ -11,7 +11,7 @@ import java.util.List;
 public class ActicleRepositoryImp implements ArticleRepository {
     static private int page;
     static public int lastPage;
-    static public int currentPage=1;
+    static public int currentPage = 1;
     static private int nextpage;
     static private int limit;
 
@@ -77,19 +77,19 @@ public class ActicleRepositoryImp implements ArticleRepository {
 
     @Override
     public List<Article> showByPagination(int page, int limit) {
-      List temp;
+        List temp;
 //      ActicleRepositoryImp.lastPage=(articleList.size()%limit==0)?articleList.size()/limit:(articleList.size()/limit)+1;
-     ActicleRepositoryImp.currentPage = page;
-      ActicleRepositoryImp.page=page;
-      ActicleRepositoryImp.lastPage = (int) (Math.ceil(articleList.size()/(double)limit));
-      int startPage = (page - 1) * limit;
-      int endPage = startPage+limit;
+        ActicleRepositoryImp.currentPage = page;
+        ActicleRepositoryImp.page = page;
+        ActicleRepositoryImp.lastPage = (int) (Math.ceil(articleList.size() / (double) limit));
+        int startPage = (page - 1) * limit;
+        int endPage = startPage + limit;
 
-      if (endPage>=articleList.size()){
-          endPage=articleList.size();
-      }
-      temp = articleList.subList(startPage,endPage);
-      return temp;
+        if (endPage >= articleList.size()) {
+            endPage = articleList.size();
+        }
+        temp = articleList.subList(startPage, endPage);
+        return temp;
     }
 }
 

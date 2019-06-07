@@ -8,12 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
 public class ArticleServiceImp implements ArticleService {
 
 
-
-    @Autowired ArticleRepository articleRepository;
+    @Autowired
+    ArticleRepository articleRepository;
 
     @Override
     public void add(Article article) {
@@ -26,24 +27,24 @@ public class ArticleServiceImp implements ArticleService {
     }
 
     @Override
-    public void update(int id,Article article) {
-        articleRepository.update(id,article);
+    public void update(int id, Article article) {
+        articleRepository.update(id, article);
     }
 
     @Override
-    public Article getArticle(int id){
+    public Article getArticle(int id) {
         return articleRepository.getArticle(id);
     }
 
     @Override
     public void delete(int id) {
-       articleRepository.delete(id);
+        articleRepository.delete(id);
     }
 
     @Override
     public List<Article> showByPagination(int page, int limit) {
 
-        return articleRepository.showByPagination(page,limit);
+        return articleRepository.showByPagination(page, limit);
     }
 }
 
