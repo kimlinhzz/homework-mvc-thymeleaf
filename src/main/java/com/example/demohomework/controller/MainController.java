@@ -100,22 +100,22 @@ public class MainController {
     }
 
     @PostMapping("/update")
-    public String updateData(@Valid @RequestParam("id") int articleId, @ModelAttribute Article article,BindingResult result ,@RequestParam("file") MultipartFile file ) {
+    public String updateData(@Valid @ModelAttribute Article article,BindingResult result,@RequestParam("id") int articleId,@RequestParam("file") MultipartFile file ) {
         System.out.println(file.getOriginalFilename());
         if (result.hasErrors()){
             System.out.println("Has Error");
             return "form-update";
         }
         else {
-            if (!file.isEmpty()) {
+            System.out.println("processing");
                 System.out.println(file.getOriginalFilename() + "update");
                 article.setThumnail(configImage(file));
                 articleService.update(articleId, article);
-                return "redirect:/";
-            } else {
+
+
                 System.out.println("processing");
                 return "redirect:/";
-            }
+
         }
     }
 

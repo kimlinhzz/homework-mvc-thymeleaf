@@ -3,6 +3,7 @@ package com.example.demohomework.repository.model;
 import javax.validation.constraints.NotEmpty;
 
 public class Article {
+
     @NotEmpty
     String aurthor;
     @NotEmpty

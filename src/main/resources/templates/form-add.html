@@ -2,14 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.0/css/mdb.min.css" rel="stylesheet">
+
+    <th:block th:insert="~{fragment/link}"> </th:block>
+
 </head>
 <body>
 
@@ -20,26 +15,26 @@
 
 <div class="container  " style="margin-top: 100px">
 
-    <h1 class="text-center">Add Data</h1>
+    <h1 class="text-center" th:text="#{add-article-title}">Add Data</h1>
 
     <form action="/add" method="post" enctype="multipart/form-data" th:object="${article}">
 
-        <label for="id">ID:</label>
+        <label for="id" th:text="#{id-text}">ID :</label>
         <input class="form-control" type="text" id="id" th:value="*{id}" th:field="*{id}" readonly><br>
-        <label for="title">Title:<span style="color: red;" th:if="${#fields.hasErrors()}" th:text="#{title-error}">Invaled Title</span></label>
+        <label for="title" th:text="#{title-text}">Title :</label> <span style="color: red;" th:if="${#fields.hasErrors('title')}" th:text="#{title-error}">Invaled Title</span>
         <input class="form-control" type="text" id="title" th:field="*{title}"><br>
-        <label for="author">Author:<span style="color: red;" th:text="#{author-error}" th:if="${#fields.hasErrors()}">Invaled Author</span></label>
+        <label for="author" th:text="#{article}">Author :</label> <span style="color: red;" th:text="#{author-error}" th:if="${#fields.hasErrors('aurthor')}">Invaled Author</span>
         <input class="form-control" id="author" th:field="*{aurthor}" type="text"><br>
-        <label for="des">Description:</label>
+        <label for="des" th:text="#{description}">Description :</label>
         <input class="form-control" id="des" th:field="*{description}" type="text"><br>
-        <input class="form-control" id="file-id" name="file" type="file"><br>
+        <input class="custom-file" id="file-id" name="file" type="file"><br>
+
         <img id="image">
-
-
-        <input type="submit" value="ADD" class="btn btn-green">
-
-        <a th:href="@{/}" class="btn btn-yellow">back</a>
-
+        <br>
+        <div style="margin-bottom:50px;">
+        <input type="submit" th:value="#{add-text}"  class="btn btn-green">
+    <a th:href="@{/}" class="btn btn-secondary" th:text="#{back-text}">back</a>
+        </div>
     </form>
 </div>
 

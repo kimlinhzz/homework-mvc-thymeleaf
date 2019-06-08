@@ -20,7 +20,7 @@ public class ActicleRepositoryImp implements ArticleRepository {
 
     public ActicleRepositoryImp() {
         for (int i = 1; i <= 70; i++) {
-            articleList.add(new Article("chan", "popo", "bla bla bla", "unknow", i));
+            articleList.add(new Article("Jonh caco", "Mindset", "bla bla bla", "default.png", i));
         }
     }
 
@@ -72,7 +72,7 @@ public class ActicleRepositoryImp implements ArticleRepository {
             }
 
         }
-        //     articleList.remove(1);
+
     }
 
     @Override

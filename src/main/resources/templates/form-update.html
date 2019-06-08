@@ -2,14 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.0/css/mdb.min.css" rel="stylesheet">
+    <th:block th:insert="~{fragment/link}"> </th:block>
 </head>
 <body>
 
@@ -22,22 +15,22 @@
 
     <form action="/update" method="post" th:object="${article}" enctype="multipart/form-data">
 
-        <label for="id">ID:</label>
+        <label for="id" th:text="#{id-text}">ID :</label>
         <input readonly class="form-control" type="text" id="id" th:field="*{id}"> <br>
-        <label for="title">Title: <span th:if="${#fields.hasErrors()}"> blalba</span> </label>
+        <label for="title" th:text="#{title-text}">Title :</label>  <span style="color:red" th:text="#{title-error}"  th:if="${#fields.hasErrors('title')}" >wqdq</span>
         <input class="form-control" type="text" id="title" th:field="*{title}"><br>
-        <label for="author">Author:</label>
+        <label for="author" th:text="#{article}">Author : </label>   <span style="color:red" th:text="#{author-error}" th:if="${#fields.hasErrors('aurthor')}" >qwdqw</span>
         <input class="form-control" type="text" id="author" th:field="*{aurthor}"><br>
-        <label for="des">Description:</label>
+        <label for="des" th:text="#{description}">Description :</label>
         <input class="form-control" type="text" id="des" th:field="*{description}"><br>
-        <label> Image</label>
+        <label th:text="#{image-text}">Image</label>
 
-        <img id="image" style="width:180px; height: 130px" th:src="'/thumnail/'+*{thumnail}">
+        <img id="image" style="width:180px; height: 130px;margin: 30px" th:src="'/thumnail/'+*{thumnail}">
 
         <input class="form-control" type="file" id="file-id" name="file"><br>
 
-        <input type="submit" value="Update" class="btn btn-yellow">
-        <a th:href="@{/}" class="btn btn-yellow">back</a>
+        <input type="submit" th:value="#{update-text}" class="btn btn-yellow">
+        <a th:href="@{/}" class="btn btn-secondary" th:text="#{back-text}">back</a>
 
     </form>
 
@@ -80,6 +73,6 @@
 </body>
 
 <!--    Replace fragment for footer -->
-    <div id="div-footer" style=" bottom: 0 ;width: 100%" th:insert="~{fragment/ajax-fragment :: footer1}"></div>
+    <div id="div-footer" style=" bottom: 0 ;width: 100%; " th:insert="~{fragment/ajax-fragment :: footer1}"></div>
 
 </html>

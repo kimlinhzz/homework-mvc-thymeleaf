@@ -2,14 +2,7 @@
 <html  xmlns="http://www.w3.org/1999/xhtml"
        xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.0/css/mdb.min.css" rel="stylesheet">
+    <th:block th:insert="~{fragment/link}"></th:block>
 </head>
 <body>
 
@@ -22,16 +15,17 @@
 
     <form th:object="${article}">
 
-        <label class="" for="id">ID:</label>
+        <label for="id" th:text="#{id-text}">ID:</label>
         <input readonly class="form-control" type="text" id="id" th:field="*{id}"><br>
-        <label for="title">Title</label>
-        <input readonly class="form-control"  type="text" id="title" th:field="*{title}"><br>
-        <label for="author">Author:</label>
+        <label for="title" th:text="#{title-text}">Title</label>
+        <input class="form-control" id="title" readonly th:field="*{title}" type="text"><br>
+        <label for="author" th:text="#{article}">Author:</label>
         <input readonly class="form-control" type="text" id="author" th:field="*{aurthor}"><br>
-        <label for="des">Description:</label>
+        <label for="des" th:text="#{description}">Description:</label>
         <input readonly class="form-control" type="text" id="des" th:field="*{description}"><br>
-        <img style="width:180px; height: 130px" th:src="'/thumnail/'+*{thumnail}">
-        <a th:href="@{/}" class="btn btn-yellow">back</a>
+        <lable th:text="#{thumbnail-text}">qwdq</lable>
+        <img style="width:180px; height: 130px; margin: 30px" th:src="'/thumnail/'+*{thumnail}">
+        <a class="btn btn-yellow" th:href="@{/}" th:text="#{back-text}">back</a>
 
 </form>
 </div>
